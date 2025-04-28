@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en"></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>Analog Clock</title>
+</head>
+<body>
+    
+    <h1>Analog Clock</h1>
+    <div id="clock" style="width: 300px; height: 300px; border: 5px solid black; border-radius: 50%; position: relative;">
+        <div id="point" style="width: 10px; height: 10px;background-color: black;border-radius: 50px;position: absolute;top: 150.1px;left: 146px;"></div>
+        <div id="hour" style="width: 4px; height: 80px; background-color: black; position: absolute; top: 25%; left: 50%; transform-origin: bottom;"></div>
+        <div id="minute" style="width: 4px; height: 116px; background-color: gray; position: absolute; top: 13%; left: 50%; transform-origin: bottom;"></div>
+        <div id="second" style="width: 2px; height: 138px; background-color: red; position: absolute; top: 5%; left: 50%; transform-origin: bottom;"></div>
+        <div class="one">1</div>
+        <div class="two">2</div>
+        <div class="three">3</div>
+        <div class="four">4</div>
+        <div class="five">5</div>
+        <div class="six">6</div>
+        <div class="seven">7</div>
+        <div class="eight">8</div>
+        <div class="nine">9</div>
+        <div class="ten">10</div>
+        <div class="eleven">11</div>
+        <div class="twelve">12</div>
+
+        <div id="point" style="width: 10px; height: 10px;background-color: black;border-radius: 50px;position: absolute;top: 150.1px;left: 146px;"></div>
+        
+        
+        <div id="name" style="position: absolute; font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;font-weight: bold; font-size: 22px; color: orange; left: 120px; top: 70px;">YAJAT</div>
+    </div>
+    
+    <p>Current Time: <span id="time"></span></p>
+    <p>Current Date: <span id="date"></span></p>
+    <p>Current Time in 12-hour format: <span id="time12"></span></p>
+    
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+            padding: 10px 20px;
+            border-radius: 10px;
+            background-color: #fff; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            transition: all 0.3s ease-in-out;
+        
+        }
+        h1:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            background-color: #e0e0e0;
+        }
+        #clock {
+            position: relative;
+            width: 90%;
+            max-width: 300px;
+            aspect-ratio: 1;
+            border: 5px solid black;
+            border-radius: 50%;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        #name {
+            position: absolute;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            font-weight: bold;
+            font-size: 22px;
+            color: orange;
+            left: 120px;
+            top: 70px;
+        }
+        #point {
+            width: 10px;
+            height: 10px;
+            background-color: black;
+            border-radius: 50%;
+            position: absolute;
+            top: 150.1px;
+            left: 146px;
+        }
+
+        
+        #time {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        #date {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #hour, #minute, #second {
+            position: absolute;
+            transform-origin: bottom center;
+            /* Removed transition to ensure accurate time display */
+        }
+        #hour {
+            background-color: rgb(146, 3, 3);
+            width: 6px;
+            height: 60px;
+            top: 25%;
+            left: 50%;
+        }
+        #minute {
+            background-color: rgb(3, 146, 3);
+            width: 4px;
+            height: 70px;
+            top: 15%;
+            left: 50%;
+        }
+        #date {
+            font-size: 20px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        #time12 {
+            font-size: 20px;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        
+        .twelve {
+            position: absolute;
+            font-size: 25px;
+            font-weight: bold;
+            color: black;
+            left: 140px;
+            top: 10px;
+        }
+        .one {
+            position: absolute;
+            font-size: 25px;
+            font-weight: bold;
+            color: black;
+            left: 215px;
+            top: 24px;
+        }
+        .two {
+            position: absolute;
+            font-size: 25px;
+            font-weight: bold;
+            color: black;
+            left: 265px;
+            top: 75px;
+        }
+        .three {
+            position: absolute;
+            font-size: 25px;
+            font-weight: bold;
+            color: black;
+            left: 280px;
+            top: 142px;
+        }
+        .four {
+            position: absolute;
+            font-size: 25px;
+            font-weight: bold;
+            color: black;
+            left: 263px;
+            top: 207px;
+        }
+        .five {
+            position: absolute;
+            font-size: 25px;
+            font-weight: bold;
+            color: black;
+            left: 213px;
+            top: 255px;
+        }
+        .six {
+            position: absolute;
+            font-size: 25px;
+            font-weight: bold;
+            color: black;
+            left: 145px;
+            top: 270px;
+        }
+        .seven {
+            position: absolute;
+            font-size: 25px;
+            font-weight: bold;
+            color: black;
+            left: 80px;
+            top: 255px;
+        }
+        .eight {
+            position: absolute;
+            font-size: 25px;
+            font-weight: bold;
+            color: black;
+            left: 28px;
+            top: 210px;
+        }
+        .nine {
+            position: absolute;
+            font-size: 25px;
+            font-weight: bold;
+            color: black;
+            left: 10px;
+            top: 140px;
+        }
+        .ten {
+            position: absolute;
+            font-size: 25px;
+            font-weight: bold;
+            color: black;
+            left: 25px;
+            top: 75px;
+        }
+        .eleven {
+            position: absolute;
+            font-size: 25px;
+            font-weight: bold;
+            color: black;
+            left: 70px;
+            top: 24px;
+        }
+
+       
+
+
+        
+    </style>
+    
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime(); // Initial call to set the time immediately
+
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('time').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        setInterval(updateTime, 1000);
+        updateTime(); // Initial call to set the time immediately
+
+        function updateDate() {
+            const now = new Date();
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+            const year = now.getFullYear();
+            document.getElementById('date').textContent = `${day}/${month}/${year}`;
+        }
+
+        updateDate(); // Initial call to set the date immediately
+        setInterval(updateDate, 1000 * 60 * 60 * 24); // Update daily
+
+        updateDate(); // Initial call to set the date immediately
+
+
+        function updateTime12() {
+            const now = new Date();
+            let hours = now.getHours();
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? String(hours).padStart(2, '0') : '12'; // the hour '0' should be '12'
+            document.getElementById('time12').textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+        }
+
+        setInterval(updateTime12, 1000);
+        updateTime12(); // Initial call to set the time immediately
+
+
+
+        
+
+    </script>
+    
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const seconds = now.getSeconds();
+            const minutes = now.getMinutes();
+            const hours = now.getHours();
+
+            const secondDeg = (seconds / 60) * 360;
+            const minuteDeg = (minutes / 60) * 360 + (seconds / 60) * 6;
+            const hourDeg = (hours % 12 / 12) * 360 + (minutes / 60) * 30;
+
+            document.getElementById('second').style.transform = `rotate(${secondDeg}deg)`;
+            document.getElementById('minute').style.transform = `rotate(${minuteDeg}deg)`;
+            document.getElementById('hour').style.transform = `rotate(${hourDeg}deg)`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock(); // Initial call to set the clock immediately
+
+
+    </script>
+<style>
+     @media screen and (min-width: 320px) and (max-width: 480px) {
+            #clock {
+                width: 300px;
+                
+                
+            }
+            h1 {
+                font-size: 28px;
+            }
+            #time, #date, #time12 {
+                font-size: 18px;
+            }
+            .one, .two, .three, .four, .five, .six, .seven, .eight, .nine, .ten, .eleven, .twelve {
+                font-size: 18px;
+            }
+
+            #name {
+                font-size: 18px;
+                left: 80px;
+                top: 50px;
+            }
+
+            #point {
+                width: 8px;
+                height: 8px;
+                top: 150.1px;
+                left: 146px;
+            }
+
+            #hour {
+                width: 4px;
+                height: 50px;
+            }
+            #minute {
+                width: 3px;
+                height: 60px;
+            }
+            #second {
+                width: 2px;
+                height: 80px;
+            }
+
+            
+        }
+</style>
+   
+</body>
+</html>
